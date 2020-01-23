@@ -1,7 +1,7 @@
-import { assetDataUtils, SignedOrder } from '0x.js';
 import { APIOrder, OrderbookResponse, PaginatedCollection } from '@0x/connect';
 import { WSClient } from '@0x/mesh-rpc-client';
-import { AssetPairsItem, OrdersRequestOpts } from '@0x/types';
+import { assetDataUtils } from '@0x/order-utils';
+import { AssetPairsItem, OrdersRequestOpts, SignedOrder } from '@0x/types';
 import * as _ from 'lodash';
 
 import { getDBConnection } from '../db_connection';
@@ -157,7 +157,7 @@ export class OrderBookService {
         this._meshClient = meshClient;
     }
     public async addOrderAsync(signedOrder: SignedOrder): Promise<void> {
-        const { rejected } = await this._meshClient.addOrdersAsync([signedOrder]);
+        const { rejected } = await this._meshClient.addOrdersAsync([signedOrder], true);
         if (rejected.length !== 0) {
             throw new ValidationError([
                 {

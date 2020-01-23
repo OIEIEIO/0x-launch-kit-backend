@@ -197,7 +197,7 @@ var MeshUtils = /** @class */ (function() {
                     case 2:
                         if (!!chunks_1_1.done) return [3 /*break*/, 5];
                         chunk = chunks_1_1.value;
-                        return [4 /*yield*/, meshClient.addOrdersAsync(chunk)];
+                        return [4 /*yield*/, meshClient.addOrdersAsync(chunk, true)];
                     case 3:
                         results = _b.sent();
                         validationResults.accepted = __spread(validationResults.accepted, results.accepted);
@@ -257,7 +257,7 @@ var MeshUtils = /** @class */ (function() {
             case mesh_rpc_client_1.RejectedCode.OrderHasInvalidSignature: {
                 return errors_1.ValidationErrorCodes.InvalidSignatureOrHash;
             }
-            case mesh_rpc_client_1.RejectedCode.OrderForIncorrectNetwork: {
+            case mesh_rpc_client_1.RejectedCode.OrderForIncorrectChain: {
                 return errors_1.ValidationErrorCodes.InvalidAddress;
             }
             default:

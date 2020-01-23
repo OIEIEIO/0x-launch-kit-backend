@@ -30,7 +30,7 @@ export class MeshUtils {
         const validationResults: ValidationResults = { accepted: [], rejected: [] };
         const chunks = _.chunk(orders, batchSize);
         for (const chunk of chunks) {
-            const results = await meshClient.addOrdersAsync(chunk);
+            const results = await meshClient.addOrdersAsync(chunk, true);
             validationResults.accepted = [...validationResults.accepted, ...results.accepted];
             validationResults.rejected = [...validationResults.rejected, ...results.rejected];
         }
@@ -70,7 +70,7 @@ export class MeshUtils {
             case RejectedCode.OrderHasInvalidSignature: {
                 return ValidationErrorCodes.InvalidSignatureOrHash;
             }
-            case RejectedCode.OrderForIncorrectNetwork: {
+            case RejectedCode.OrderForIncorrectChain: {
                 return ValidationErrorCodes.InvalidAddress;
             }
             default:
